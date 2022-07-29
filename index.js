@@ -8,11 +8,11 @@ const noteRoutes = require("./routes/note");
 // connecting with database
 connectToMongo();
 
-app.get("/", (req, res) => {
-    res.send("Hello Boys!");
-})
+// for parse json data which will come from req.body
+app.use(express.json());
+
 // Use of Routes
-app.use("/auth", authRoutes);
+app.use("/user", authRoutes);
 
 
 // Connecting server with port
