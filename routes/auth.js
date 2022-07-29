@@ -2,6 +2,9 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const USER_SECRET = "usersecret";
 
 // create user
 router.post(
@@ -31,18 +34,29 @@ router.post(
 				});
 			}
 
+			// creating salt 
+			let salt = await bcrypt.genSalt(10);
+			let secretPass = await bcrypt.hash(req.body.password, salt);
+
 			// creating new user
 			let newUser = await User.create({
 				name: req.body.name,
 				email: req.body.email,
-				password: req.body.password,
+				password: secretPass,
 			});
 			await newUser.save();
+
+			const data = {
+				user: {
+					id: newUser.id
+				}
+			};
+			const authToken = jwt.sign(data, USER_SECRET);
 
 			// return success
 			return res.status(200).json({
 				msg: "User created successfully",
-				data: newUser,
+				data: authToken,
 			});
 		} catch (error) {
 			console.log('error :: ', error);
