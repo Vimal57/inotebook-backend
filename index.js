@@ -13,6 +13,7 @@ app.use(express.json());
 
 // Use of Routes
 app.use("/user", authRoutes);
+app.use("/note", noteRoutes);
 
 
 // Connecting server with port

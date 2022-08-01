@@ -142,7 +142,7 @@ router.get(
 			// return success
 			return res.status(200).json({
 				msg: 'User Found Successfully...',
-				data: req.user,
+				data: req.me,
 			});
 		} catch (error) {
 			console.log('error :: ', error);

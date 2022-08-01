@@ -14,7 +14,7 @@ const isLoggedIn = async (req, res, next) => {
 
     const data = jwt.verify(token, USER_SECRET);
     const user = await User.findOne({ id: data.user.id }).select("-password");
-    req.user = user;
+    req.me = user;
     next();
 }
 
