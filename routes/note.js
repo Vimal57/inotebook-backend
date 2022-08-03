@@ -179,12 +179,13 @@ router.post('/delete/:id', isLoggedIn, async function (req, res) {
 		}
 
 		// delete note for that user
-		await Note.findOneAndDelete({ id, user: user.id });
+		await Note.findOneAndDelete({ _id: id });
+		let notes = await Note.find({ user: userData._id });
 
 		// return success
 		return res.status(200).json({
 			msg: 'Note Deleted Successfully...',
-			data: {},
+			data: {notes},
 		});
 	} catch (error) {
 		console.log('error :: ', error);
