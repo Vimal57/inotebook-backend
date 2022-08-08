@@ -57,7 +57,7 @@ router.post(
 			// return success
 			return res.status(200).json({
 				msg: 'User created successfully',
-				data: authToken,
+				data: {authToken},
 			});
 		} catch (error) {
 			console.log('error :: ', error);
@@ -119,7 +119,7 @@ router.post(
 			// return success
 			return res.status(200).json({
 				msg: 'User Logged IN successfully',
-				data: authToken,
+				data: {authToken},
 			});
 		} catch (error) {
 			console.log('error :: ', error);
